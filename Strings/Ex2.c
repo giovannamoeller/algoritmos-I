@@ -1,15 +1,15 @@
 #include <stdio.h>
-#include <stdlib.h>
+#define qte 5
 
-int main() {
-    char vet[100][5];
-    int i;
-    for (i = 0; i < 5; i++){
-        printf("\nDigite a frase: ");
-        scanf("%s", &vet[i]);
-        fflush(stdin); // limpa buffer do teclado
-    }
-    for (i = 0; i < 5; i++){
-        puts(vet[i]);
-    }
+int main () {
+  char texto[qte][15];
+  int i;
+  for (i = 0; i < qte; i++) {
+    printf ("\nDigite uma cadeia de caracteres: ");
+    gets (texto[i]);
+  }
+  printf ("\n\nAs cadeias de caracteres digitadas foram:\n");
+  for (i = 0; i < qte; i++)
+    printf ("%s\n",texto[i]);
 }
+
