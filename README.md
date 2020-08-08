@@ -1,2 +1,3 @@
 # Algoritmos I
-Repositório destinado à disciplina de Algoritmos I - BSI UNESP. <br>
+
+Aqui posto todos os meus exercícios e trabalhos da disciplina Algoritmos I (1º semestre), utilizando a <b>linguagem C</b>.
