@@ -32,7 +32,7 @@ void verificaRepeticao(int matriz[l][c], int linha, int coluna) {
 int main() {
     srand(time(NULL));
     int matriz[l][c];
-    int i, j;
+    int i, j, op = -1;
     for(i = 0; i < l; i++) {
         for(j = 0; j < c; j++) {
             matriz[i][j] = rand()%10;
@@ -41,4 +41,14 @@ int main() {
         printf("\t\n");
     }
     verificaRepeticao(matriz, l, c);
+
+    while(op != 1 || op != 0) {
+        printf("\n\nDigite 1 para reprocessamento ou 0 para sair: ");
+        scanf("%d", &op);
+        if(op == 1) {
+            main();
+        } else if(op == 0) {
+            exit(1);
+        }
+    }
 }

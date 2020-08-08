@@ -2,31 +2,32 @@
 #include <string.h>
 #include <stdlib.h>
 
-char * inverte(char * cadeia) {
-    int length = strlen(cadeia);
-    printf("%s", cadeia);
-    int aux, i, j;
-    for (i = 0, j = length - 1; i < j; i++, j--)
-    {
-        printf("%c\n\n", cadeia[i]);
-        if(cadeia[i] == 32){
-            printf("n entro");
+char * inverte(char * cadeia, char * aux) {
+
+    int i, j, a, cont = 0;
+    for(a = 0; cadeia[a] != '\0'; a++) {
+        cont++;
+    }
+    j = cont - 1;
+    for (i = 0; cadeia[i] != '\0'; i++) {
+        if(cadeia[i] == ' '){
             cadeia[i] = cadeia[i+1];
         }
-        aux = cadeia[i];
-        cadeia[i] = cadeia[j];
-        cadeia[j] = aux;
+        aux[j] = cadeia[i];
+        j--;
     }
-    return cadeia;
+    aux[i] = '\0';
+    return aux;
 }
 
 int main() {
     fflush(stdin);
-    char cadeia[50];
+    char cadeia[50], aux[50];
     int op = -1;
     printf("Digite uma cadeia de caracteres: ");
     gets(cadeia);
-    printf("\nCadeia invertida e sem espacos = %s", inverte(cadeia));
+    printf("\nCadeia invertida e sem espacos = %s", inverte(cadeia, aux));
+
     while(op != 1 || op != 0) {
         printf("\n\nDigite 1 para reprocessamento ou 0 para sair: ");
         scanf("%d", &op);
