@@ -1,10 +1,29 @@
-// Aluna - Giovanna Gimenes Moeller
-// Curso - Sistemas de Informa√ß√£o
+// Aluna: Giovanna Gimenes Moeller
+// Curso: Sistemas de InformaÁ„o
 // Jogo da Velha
-
-
 #include <stdio.h>
+#include <math.h>
 #include <stdlib.h>
+#include <locale.h>
+#include <conio.h>
+#include <windows.h>
+
+#define esc 27
+#define baixo 80
+#define cima 72
+#define esquerda 75
+#define direita 77
+#define enter 13
+
+
+int posX = 10, posY = 6;
+
+void moveXY(int x, int y)
+{
+	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD position = {x,y};
+	SetConsoleCursorPosition(hStdout, position);	
+}
 
 void tabuleiro(char casas[3][3]) {
 	system("cls");
@@ -43,7 +62,7 @@ int main() {
 	system("color 5F");
 	char casas[3][3];
 	char res;
-	int cont_jogadas, l, c, vez = 0, i, j, resul;
+	int cont_jogadas, l, c, vez = 0, i, j, resul, t;
 	do {
 		cont_jogadas = 1;
 		for(i = 0; i <= 2; i++) {
@@ -58,28 +77,89 @@ int main() {
 			} else {
 				printf("\n\n\tJogador O");
 			}
-			printf("\n\n\tDigite a linha: ");
-			scanf("%d", &l);
-			printf("\n\tDigite a coluna: ");
-			scanf("%d", &c);
 			
-			if(l < 1 || c < 1 || l > 3 || c > 3) {
-				l = 0; // jogada inv√°lida
-				c = 0;
-			} else if(casas[l-1][c-1] != ' '){
-				l = 0;
-				c = 0;
-			} else {
-				// jogada v√°lida
-				if(vez %2 == 0) {
-					casas[l-1][c-1] = 'X';
-				} else {
-					casas[l-1][c-1] = 'O';
+			printf("\n\n\tUtilize as setas para mover o cursor. Pressione enter para marcar a casinha.");
+			moveXY(posX, posY);
+			t = getch();
+			while(t != enter) {
+				t = getch();
+				if(t == direita) {
+					if(posX != 20) {
+						posX += 5;
+						moveXY(posX, posY);
+					}
+				} 
+				if(t == esquerda) {
+					if(posX != 10) {
+						posX -= 5;
+						moveXY(posX, posY);
+					}
 				}
-				vez++;
-				cont_jogadas++;
-				cont_jogadas = resultado(casas, cont_jogadas);	
+				if(t == baixo) {
+					if(posY != 10) {
+						posY += 2;
+						moveXY(posX, posY);
+					}
+				}
+				if(t == cima) {
+					if(posY != 6) {
+						posY -= 2;
+						moveXY(posX, posY);
+					}
+				}
 			}
+			if(posX == 10 && posY == 6) {
+				l = 1;
+				c = 1;
+			}
+			if(posX == 15 && posY == 6) {
+				l = 1;
+				c = 2;
+			}
+			if(posX == 20 && posY == 6) {
+				l = 1;
+				c = 3;
+			}
+			if(posX == 10 && posY == 8){
+				l = 2;
+				c = 1;
+			}
+			if(posX == 10 && posY == 10) {
+				l = 3;
+				c = 1;
+			}
+			if(posX == 15 && posY == 8) {
+				l = 2;
+				c = 2;
+			}
+			if(posX == 15 && posY == 10) {
+				l = 3;
+				c = 2;
+			}
+			if(posX == 20 && posY == 8) {
+				l = 2;
+				c = 3;
+			}
+			if(posX == 20 && posY == 10) {
+				l = 3;
+				c = 3;
+			}
+			if(l < 1 || c < 1 || l > 3 || c > 3) {
+				l = 0; // jogada inv·lida
+				c = 0;
+				} else if(casas[l-1][c-1] != ' '){
+					l = 0;
+					c = 0;
+			}
+			// jogada v·lida
+			if(vez % 2 == 0) {
+				casas[l-1][c-1] = 'X';
+			} else {
+				casas[l-1][c-1] = 'O';
+			}
+			vez++;
+			cont_jogadas++;
+			cont_jogadas = resultado(casas, cont_jogadas);	
 		} while(cont_jogadas <= 9);
 		tabuleiro(casas);
 		if(cont_jogadas == 10) printf("\n\n\tJogo Empatado");
